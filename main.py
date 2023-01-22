@@ -1,9 +1,6 @@
 from tkinter import *
 
 
-# create a file with history of calculations
-# add a button to show the history of operations
-
 def add(a, b):
     return a + b
 
@@ -33,7 +30,7 @@ def calculate():
         result.set(divide(a, b))
     else:
         result.set("Invalid operation")
-    # add a line to the file with history of calculations
+
     file = open("history.txt", "a")
     if operation.get() == 1:
         file.write(f"{a} + {b} = {result.get()}\n")
