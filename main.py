@@ -1,6 +1,9 @@
 from tkinter import *
 
 
+# create a file with history of calculations
+# add a button to show the history of operations
+
 def add(a, b):
     return a + b
 
@@ -30,6 +33,34 @@ def calculate():
         result.set(divide(a, b))
     else:
         result.set("Invalid operation")
+    # add a line to the file with history of calculations
+    file = open("history.txt", "a")
+    if operation.get() == 1:
+        file.write(f"{a} + {b} = {result.get()}\n")
+    elif operation.get() == 2:
+        file.write(f"{a} - {b} = {result.get()}\n")
+    elif operation.get() == 3:
+        file.write(f"{a} * {b} = {result.get()}\n")
+    elif operation.get() == 4:
+        file.write(f"{a} / {b} = {result.get()}\n")
+    file.close()
+
+
+def history():
+    file_history = open("history.txt", "r")
+    history_window = Toplevel()
+    history_window.title("History")
+    history_window.geometry("300x300")
+    history_window.resizable(0, 0)
+    history_window.grab_set()
+    history_window.focus_set()
+    history_window.transient(root)
+    Label(history_window, text="History").pack()
+    history_text = Text(history_window, width=30, height=15)
+    history_text.pack()
+    history_text.insert(1.0, file_history.read())
+    file_history.close()
+    history_window.mainloop()
 
 
 root = Tk()
@@ -41,7 +72,6 @@ first_number = StringVar()
 second_number = StringVar()
 operation = IntVar()
 result = StringVar()
-
 Label(root, text="First Number").grid(row=0, column=0)
 Entry(root, textvariable=first_number).grid(row=0, column=1)
 Label(root, text="Second Number").grid(row=1, column=0)
@@ -52,6 +82,7 @@ Radiobutton(root, text="Subtract", variable=operation, value=2).grid(row=2, colu
 Radiobutton(root, text="Multiply", variable=operation, value=3).grid(row=3, column=0)
 Radiobutton(root, text="Divide", variable=operation, value=4).grid(row=3, column=1)
 
+Button(root, text="History", command=history).grid(row=4, column=1)
 Button(root, text="Calculate", command=calculate).grid(row=4, column=0)
 Label(root, text="Result").grid(row=5, column=0)
 Entry(root, textvariable=result).grid(row=5, column=1)
