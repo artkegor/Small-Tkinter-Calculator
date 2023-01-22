@@ -62,7 +62,7 @@ def history():
 
 root = Tk()
 root.title("Mini Calculator")
-root.geometry("300x300")
+root.geometry("300x150")
 root.resizable(0, 0)
 
 first_number = StringVar()
