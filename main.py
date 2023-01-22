@@ -54,10 +54,17 @@ def history():
     history_window.transient(root)
     Label(history_window, text="History").pack()
     history_text = Text(history_window, width=30, height=15)
+    Button(history_window, text="Clear History", command=clear_history).pack()
     history_text.pack()
     history_text.insert(1.0, file_history.read())
     file_history.close()
     history_window.mainloop()
+
+
+# create a def to clear the history
+def clear_history():
+    file = open("history.txt", "w")
+    file.close()
 
 
 root = Tk()
